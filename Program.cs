@@ -55,21 +55,20 @@ else if (resp == "2")
             {
                 while ((line = sr.ReadLine()) != null)
                 {
-                    Console.WriteLine(line);
+                    //Console.WriteLine(line);
                     string date = line.Substring(0,line.IndexOf(','));
                     var parsedDate = DateTime.Parse(date);
                     Console.WriteLine($"Week of {parsedDate:MMMM, dd, yyyy}:");
                     Console.WriteLine("{0,3}{1,3}{2,3}{3,3}{4,3}{5,3}{6,3}","Su","Mo","Tu","We","Th","Fr","Sa");
                     Console.WriteLine("{0,3}{1,3}{2,3}{3,3}{4,3}{5,3}{6,3}","--","--","--","--","--","--","--");
+
+                    string hours = line.Substring(line.IndexOf(',')+1);
+                    //System.Console.WriteLine(hours);
+                    String[] arr = hours.Split('|');
+                    Console.WriteLine("{0,3}{1,3}{2,3}{3,3}{4,3}{5,3}{6,3}",arr[0],arr[1],arr[2],arr[3],arr[4],arr[5],arr[6]);
+                    System.Console.WriteLine();
                 }
             }
    
-    string[] lines = System.IO.File.ReadAllLines(@"data.txt");
-    System.Console.WriteLine("Contents of data.txt = ");
-        foreach (string singleline in lines)
-        {
-            // Use a tab to indent each line of the file.
-            Console.WriteLine("\t" + singleline);
-        }
-
+    
 }
