@@ -22,6 +22,10 @@ if (resp == "1")
     DateTime dataDate = dataEndDate.AddDays(-(weeks * 7));
         // random number generator
     Random rnd = new Random();
+     // create file
+    StreamWriter sw = new StreamWriter("data.txt");
+    // read from the file
+
 
     // loop for the desired # of weeks
     while (dataDate < dataEndDate)
@@ -34,13 +38,38 @@ if (resp == "1")
             hours[i] = rnd.Next(4, 13);
         }
         // M/d/yyyy,#|#|#|#|#|#|#
-        Console.WriteLine($"{dataDate:M/d/yy},{string.Join("|", hours)}");
+        // Console.WriteLine($"{dataDate:M/d/yy},{string.Join("|", hours)}");
+        sw.WriteLine($"{dataDate:M/d/yyyy},{string.Join("|", hours)}");
         // add 1 week to date
         dataDate = dataDate.AddDays(7);
     }
+     sw.Close();
 }
 else if (resp == "2")
 {
-    // TODO: parse data file
+    // parse data file
+
+    // Read and show each line from the file.
+            string line = "";
+            using (StreamReader sr = new StreamReader("data.txt"))
+            {
+                while ((line = sr.ReadLine()) != null)
+                {
+                    Console.WriteLine(line);
+                    string date = line.Substring(0,line.IndexOf(','));
+                    var parsedDate = DateTime.Parse(date);
+                    Console.WriteLine($"Week of {parsedDate:MMMM, dd, yyyy}:");
+                    Console.WriteLine("{0,3}{1,3}{2,3}{3,3}{4,3}{5,3}{6,3}","Su","Mo","Tu","We","Th","Fr","Sa");
+                    Console.WriteLine("{0,3}{1,3}{2,3}{3,3}{4,3}{5,3}{6,3}","--","--","--","--","--","--","--");
+                }
+            }
+   
+    string[] lines = System.IO.File.ReadAllLines(@"data.txt");
+    System.Console.WriteLine("Contents of data.txt = ");
+        foreach (string singleline in lines)
+        {
+            // Use a tab to indent each line of the file.
+            Console.WriteLine("\t" + singleline);
+        }
 
 }
